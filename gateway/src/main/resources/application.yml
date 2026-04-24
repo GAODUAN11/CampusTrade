@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  jackson:
+    default-property-inclusion: non_null
+    time-zone: Asia/Shanghai
+
+campus:
+  auth:
+    token-prefix: ctk_
+    expire-seconds: 86400
+    remember-expire-seconds: 604800
+  remote:
+    user-service:
+      host: 127.0.0.1
+      rpc-port: 9091
+      timeout-ms: 5000
+      rpc-version: 1
+      rpc-serializer: java
+      base-url: http://127.0.0.1:8081
+    product-service:
+      host: 127.0.0.1
+      rpc-port: 9092
+      timeout-ms: 5000
+      rpc-version: 1
+      rpc-serializer: java
+      base-url: http://127.0.0.1:8082
+    favorite-service:
+      host: 127.0.0.1
+      rpc-port: 9093
+      timeout-ms: 5000
+      rpc-version: 1
+      rpc-serializer: java
+      base-url: http://127.0.0.1:8083
+    message-service:
+      host: 127.0.0.1
+      rpc-port: 9094
+      timeout-ms: 5000
+      rpc-version: 1
+      rpc-serializer: java
+      base-url: http://127.0.0.1:8084
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="home.pageTitle">CampusTrade - Marketplace</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="hero">
+    <h1 data-i18n="home.hero.title">Campus Marketplace</h1>
+    <p data-i18n="home.hero.desc">Browse second-hand items from students, with detail aggregation and direct messaging.</p>
+    <div class="row two">
+      <div>
+        <label for="keywordInput" data-i18n="home.keyword.label">Keyword Filter</label>
+        <input id="keywordInput" data-i18n-placeholder="home.keyword.placeholder" placeholder="Type title/category/location keywords" />
+      </div>
+      <div class="actions" style="align-items: end;">
+        <button class="btn btn-primary" id="btnSearch" data-i18n="home.search">Search</button>
+        <button class="btn btn-ghost" id="btnReset" data-i18n="home.reset">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="status-bar" id="listStatus"></div>
+  <section class="card-grid" id="productGrid"></section>
+  <div class="pagination">
+    <button class="btn btn-ghost" id="btnPrev" data-i18n="common.prev">Prev</button>
+    <span id="pageInfo" data-i18n="common.pageInfoDefault">Page 1 / 1</span>
+    <button class="btn btn-ghost" id="btnNext" data-i18n="common.next">Next</button>
+  </div>
+</main>
+
+<script type="module" src="/js/page-home.js"></script>
+</body>
+</html>

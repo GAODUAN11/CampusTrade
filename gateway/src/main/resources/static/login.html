@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="login.pageTitle">CampusTrade - Login</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="panel" style="max-width: 520px; margin: 0 auto;">
+    <h2 data-i18n="login.title">Login</h2>
+    <p class="meta" data-i18n="login.desc">Use username/phone/email as account.</p>
+    <div id="loginNotice" class="notice" hidden></div>
+
+    <form id="loginForm">
+      <div class="row">
+        <div>
+          <label for="account" data-i18n="login.form.account">Account</label>
+          <input id="account" required maxlength="64" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="password" data-i18n="login.form.password">Password</label>
+          <input id="password" type="password" required maxlength="64" />
+        </div>
+      </div>
+      <div class="row">
+        <label><input id="rememberMe" type="checkbox" /> <span data-i18n="login.form.rememberMe">Remember me</span></label>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" data-i18n="login.form.submit">Login</button>
+        <a class="btn btn-ghost" href="/register.html" data-i18n="login.form.goRegister">Go Register</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<script type="module" src="/js/page-login.js"></script>
+</body>
+</html>

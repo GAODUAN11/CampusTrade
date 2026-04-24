@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="messages.pageTitle">CampusTrade - Messages</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="hero">
+    <h1 data-i18n="messages.hero.title">My Messages</h1>
+    <p data-i18n="messages.hero.desc">Conversation list and message details aggregated by gateway.</p>
+  </section>
+
+  <div id="messageNotice" class="notice" hidden></div>
+  <div class="split" style="margin-top: 14px;">
+    <section class="panel">
+      <h3 data-i18n="messages.section.conversations">Conversations</h3>
+      <div id="inboxSummary" class="meta" style="margin-bottom: 10px;"></div>
+      <div id="conversationList" class="conversation-list"></div>
+    </section>
+    <section class="panel">
+      <h3 id="threadTitle" data-i18n="messages.section.thread">Thread</h3>
+      <div id="messageThread" class="message-thread"></div>
+      <div class="row" style="margin-top: 10px;">
+        <div>
+          <label for="replyContent" data-i18n="messages.reply.label">Reply</label>
+          <textarea id="replyContent" data-i18n-placeholder="messages.reply.placeholder" placeholder="Type your message"></textarea>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="btnReply" class="btn btn-primary" data-i18n="messages.reply.send">Send Reply</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script type="module" src="/js/page-messages.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="favorites.pageTitle">CampusTrade - Favorites</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="hero">
+    <h1 data-i18n="favorites.hero.title">My Favorites</h1>
+    <p data-i18n="favorites.hero.desc">View all favorite products aggregated by gateway.</p>
+  </section>
+
+  <div id="favoriteNotice" class="notice" hidden></div>
+  <div class="status-bar" id="favoriteStatus"></div>
+  <section class="card-grid" id="favoriteGrid"></section>
+  <div class="pagination">
+    <button class="btn btn-ghost" id="btnPrev" data-i18n="common.prev">Prev</button>
+    <span id="pageInfo" data-i18n="common.pageInfoDefault">Page 1 / 1</span>
+    <button class="btn btn-ghost" id="btnNext" data-i18n="common.next">Next</button>
+  </div>
+</main>
+
+<script type="module" src="/js/page-favorites.js"></script>
+</body>
+</html>

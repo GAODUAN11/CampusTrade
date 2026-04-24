@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ct_product (
+    product_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    seller_id BIGINT NOT NULL,
+    title VARCHAR(128) NOT NULL,
+    summary VARCHAR(255) NULL,
+    description VARCHAR(5000) NOT NULL,
+    price DECIMAL(12, 2) NOT NULL,
+    original_price DECIMAL(12, 2) NULL,
+    category VARCHAR(64) NULL,
+    location VARCHAR(128) NULL,
+    cover_image_url VARCHAR(255) NULL,
+    view_count INT NOT NULL DEFAULT 0,
+    favorite_count INT NOT NULL DEFAULT 0,
+    negotiable TINYINT(1) NOT NULL DEFAULT 1,
+    stock INT NOT NULL DEFAULT 1,
+    image_urls TEXT NULL,
+    tags TEXT NULL,
+    status VARCHAR(32) NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    INDEX idx_ct_product_seller_id (seller_id),
+    INDEX idx_ct_product_status_created_at (status, created_at)
+);

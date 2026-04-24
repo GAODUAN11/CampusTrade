@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="productDetail.pageTitle">CampusTrade - Product Detail</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="hero">
+    <h1 id="productTitle" data-i18n="productDetail.hero.title">Product Detail</h1>
+    <p id="productSubline" data-i18n="productDetail.hero.loading">Loading...</p>
+  </section>
+
+  <div id="detailNotice" class="notice" hidden></div>
+
+  <section class="panel" id="detailPanel" style="margin-top: 14px;">
+    <div class="row two">
+      <div>
+        <h3 data-i18n="productDetail.section.basicInfo">Basic Info</h3>
+        <div id="basicInfo" class="meta"></div>
+      </div>
+      <div>
+        <h3 data-i18n="productDetail.section.seller">Seller</h3>
+        <div id="sellerInfo" class="meta"></div>
+      </div>
+    </div>
+    <h3 data-i18n="productDetail.section.description">Description</h3>
+    <p id="descriptionText" class="meta"></p>
+    <h3 data-i18n="productDetail.section.gallery">Gallery</h3>
+    <div id="gallery" class="gallery"></div>
+    <h3 data-i18n="productDetail.section.tags">Tags</h3>
+    <div id="tagList" class="chip-list"></div>
+    <div class="actions" style="margin-top: 12px;">
+      <button id="btnToggleFavorite" class="btn btn-primary" data-i18n="productDetail.favorite.default">Favorite</button>
+      <a id="btnOpenMessages" class="btn btn-ghost" href="/messages.html" data-i18n="productDetail.openMessages">Open My Messages</a>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top: 14px;">
+    <h3 data-i18n="productDetail.section.sendMessage">Send Message To Seller</h3>
+    <p class="meta" data-i18n="productDetail.sendHint">If logged in, you can start a conversation from this product page.</p>
+    <div class="row">
+      <div>
+        <label for="messageContent" data-i18n="productDetail.message.label">Message</label>
+        <textarea id="messageContent" data-i18n-placeholder="productDetail.message.placeholder" placeholder="Ask about price, condition, and pickup details"></textarea>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="btnSendMessage" class="btn btn-primary" data-i18n="productDetail.message.send">Send Message</button>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="/js/page-product-detail.js"></script>
+</body>
+</html>

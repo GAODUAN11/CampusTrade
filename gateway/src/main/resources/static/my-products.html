@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="myProducts.pageTitle">CampusTrade - My Products</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="hero">
+    <h1 data-i18n="myProducts.hero.title">My Published Products</h1>
+    <p data-i18n="myProducts.hero.desc">Manage your products, edit details, and switch shelf status.</p>
+  </section>
+
+  <div id="myProductNotice" class="notice" hidden></div>
+
+  <div class="status-bar" id="myProductStatus"></div>
+  <section class="card-grid" id="myProductGrid"></section>
+  <div class="pagination">
+    <button class="btn btn-ghost" id="btnPrev" data-i18n="common.prev">Prev</button>
+    <span id="pageInfo" data-i18n="common.pageInfoDefault">Page 1 / 1</span>
+    <button class="btn btn-ghost" id="btnNext" data-i18n="common.next">Next</button>
+  </div>
+
+  <section class="panel" style="margin-top: 16px;">
+    <h3 data-i18n="myProducts.edit.title">Edit Product</h3>
+    <p class="meta" data-i18n="myProducts.edit.desc">Click edit on any item to load its current detail into this form.</p>
+    <form id="editForm">
+      <div class="row two">
+        <div>
+          <label for="productId" data-i18n="myProducts.form.productId">Product ID</label>
+          <input id="productId" readonly />
+        </div>
+        <div>
+          <label for="status" data-i18n="myProducts.form.status">Status</label>
+          <select id="status">
+            <option value="" data-i18n="myProducts.status.noChange">No Change</option>
+            <option value="ON_SALE">ON_SALE</option>
+            <option value="OFF_SHELF">OFF_SHELF</option>
+          </select>
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="title" data-i18n="myProducts.form.title">Title</label>
+          <input id="title" maxlength="128" />
+        </div>
+        <div>
+          <label for="price" data-i18n="myProducts.form.price">Price</label>
+          <input id="price" type="number" min="0.01" step="0.01" />
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="originalPrice" data-i18n="myProducts.form.originalPrice">Original Price</label>
+          <input id="originalPrice" type="number" min="0" step="0.01" />
+        </div>
+        <div>
+          <label for="stock" data-i18n="myProducts.form.stock">Stock</label>
+          <input id="stock" type="number" min="1" step="1" />
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="category" data-i18n="myProducts.form.category">Category</label>
+          <input id="category" maxlength="64" />
+        </div>
+        <div>
+          <label for="location" data-i18n="myProducts.form.location">Location</label>
+          <input id="location" maxlength="128" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="description" data-i18n="myProducts.form.description">Description</label>
+          <textarea id="description" maxlength="5000"></textarea>
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="imageUrls" data-i18n="myProducts.form.imageUrls">Image URLs (comma separated)</label>
+          <input id="imageUrls" />
+        </div>
+        <div>
+          <label for="tags" data-i18n="myProducts.form.tags">Tags (comma separated)</label>
+          <input id="tags" />
+        </div>
+      </div>
+      <div class="row">
+        <label><input id="negotiable" type="checkbox" /> <span data-i18n="myProducts.form.negotiable">Negotiable</span></label>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" data-i18n="myProducts.form.save">Save Update</button>
+        <button class="btn btn-ghost" id="btnClear" type="button" data-i18n="myProducts.form.clear">Clear</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<script type="module" src="/js/page-my-products.js"></script>
+</body>
+</html>

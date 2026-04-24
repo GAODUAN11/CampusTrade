@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="publish.pageTitle">CampusTrade - Publish Product</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="hero">
+    <h1 data-i18n="publish.hero.title">Publish Product</h1>
+    <p data-i18n="publish.hero.desc">Create and manage your product through gateway APIs.</p>
+  </section>
+
+  <div id="publishNotice" class="notice" hidden></div>
+
+  <section class="panel" style="margin-top: 14px;">
+    <h3 data-i18n="publish.section.create">Create Product</h3>
+    <form id="publishForm">
+      <div class="row two">
+        <div>
+          <label for="title" data-i18n="publish.form.title">Title</label>
+          <input id="title" required maxlength="128" />
+        </div>
+        <div>
+          <label for="price" data-i18n="publish.form.price">Price</label>
+          <input id="price" type="number" min="0.01" step="0.01" required />
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="originalPrice" data-i18n="publish.form.originalPrice">Original Price</label>
+          <input id="originalPrice" type="number" min="0" step="0.01" />
+        </div>
+        <div>
+          <label for="stock" data-i18n="publish.form.stock">Stock</label>
+          <input id="stock" type="number" min="1" step="1" value="1" />
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="category" data-i18n="publish.form.category">Category</label>
+          <input id="category" maxlength="64" />
+        </div>
+        <div>
+          <label for="location" data-i18n="publish.form.location">Location</label>
+          <input id="location" maxlength="128" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="description" data-i18n="publish.form.description">Description</label>
+          <textarea id="description" required maxlength="5000"></textarea>
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="imageUrls" data-i18n="publish.form.imageUrls">Image URLs (comma separated)</label>
+          <input id="imageUrls" data-i18n-placeholder="publish.form.imageUrls.placeholder" placeholder="https://... , https://..." />
+        </div>
+        <div>
+          <label for="tags" data-i18n="publish.form.tags">Tags (comma separated)</label>
+          <input id="tags" data-i18n-placeholder="publish.form.tags.placeholder" placeholder="book, java, bike" />
+        </div>
+      </div>
+      <div class="row">
+        <label><input id="negotiable" type="checkbox" checked /> <span data-i18n="publish.form.negotiable">Negotiable</span></label>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" data-i18n="publish.form.submit">Publish</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel" style="margin-top: 14px;">
+    <h3 data-i18n="publish.section.quickShelf">Quick Shelf Control</h3>
+    <div class="row two">
+      <div>
+        <label for="manageProductId" data-i18n="publish.quick.productId">Product ID</label>
+        <input id="manageProductId" type="number" min="1" />
+      </div>
+      <div class="actions" style="align-items: end;">
+        <button class="btn btn-ghost" id="btnOnShelf" data-i18n="publish.quick.onShelf">On Shelf</button>
+        <button class="btn btn-danger" id="btnOffShelf" data-i18n="publish.quick.offShelf">Off Shelf</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="/js/page-publish.js"></script>
+</body>
+</html>

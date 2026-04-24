@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="register.pageTitle">CampusTrade - Register</title>
+  <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header id="topbar"></header>
+
+<main class="container">
+  <section class="panel" style="max-width: 760px; margin: 0 auto;">
+    <h2 data-i18n="register.title">Register</h2>
+    <p class="meta" data-i18n="register.desc">Create your campus trading account.</p>
+    <div id="registerNotice" class="notice" hidden></div>
+
+    <form id="registerForm">
+      <div class="row two">
+        <div>
+          <label for="username" data-i18n="register.form.username">Username</label>
+          <input id="username" required minlength="3" maxlength="32" />
+        </div>
+        <div>
+          <label for="nickname" data-i18n="register.form.nickname">Nickname</label>
+          <input id="nickname" required maxlength="32" />
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="password" data-i18n="register.form.password">Password</label>
+          <input id="password" type="password" required minlength="6" maxlength="64" />
+        </div>
+        <div>
+          <label for="confirmPassword" data-i18n="register.form.confirmPassword">Confirm Password</label>
+          <input id="confirmPassword" type="password" required minlength="6" maxlength="64" />
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="phone" data-i18n="register.form.phone">Phone</label>
+          <input id="phone" maxlength="11" data-i18n-placeholder="common.optional" placeholder="Optional" />
+        </div>
+        <div>
+          <label for="email" data-i18n="register.form.email">Email</label>
+          <input id="email" maxlength="64" data-i18n-placeholder="common.optional" placeholder="Optional" />
+        </div>
+      </div>
+      <div class="row two">
+        <div>
+          <label for="school" data-i18n="register.form.school">School</label>
+          <input id="school" maxlength="64" data-i18n-placeholder="common.optional" placeholder="Optional" />
+        </div>
+        <div>
+          <label for="campus" data-i18n="register.form.campus">Campus</label>
+          <input id="campus" maxlength="64" data-i18n-placeholder="common.optional" placeholder="Optional" />
+        </div>
+      </div>
+      <div class="row">
+        <label><input id="agreeTerms" type="checkbox" checked /> <span data-i18n="register.form.agreeTerms">I agree to terms</span></label>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" data-i18n="register.form.submit">Create Account</button>
+        <a class="btn btn-ghost" href="/login.html" data-i18n="register.form.goLogin">Go Login</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<script type="module" src="/js/page-register.js"></script>
+</body>
+</html>

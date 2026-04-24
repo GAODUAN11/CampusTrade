@@ -1,0 +1,43 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://${CAMPUS_MYSQL_HOST:127.0.0.1}:${CAMPUS_MYSQL_PORT:3306}/campustrade_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: ${CAMPUS_MYSQL_USERNAME:root}
+    password: ${CAMPUS_MYSQL_PASSWORD:200662.Gd}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+  jackson:
+    default-property-inclusion: non_null
+    time-zone: Asia/Shanghai
+
+campus:
+  auth:
+    token-prefix: ctk_
+    expire-seconds: 86400
+    remember-expire-seconds: 604800
+  rpc:
+    port: 9091
+    protocol-version: 1
+    serializer: java
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
