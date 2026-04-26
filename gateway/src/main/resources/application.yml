@@ -14,6 +14,14 @@ campus:
     expire-seconds: 86400
     remember-expire-seconds: 604800
   remote:
+    mode: ${CAMPUS_REMOTE_MODE:http}
+    registry:
+      enabled: ${CAMPUS_REGISTRY_ENABLED:true}
+      host: ${CAMPUS_REGISTRY_HOST:127.0.0.1}
+      rpc-port: ${CAMPUS_REGISTRY_RPC_PORT:9090}
+      timeout-ms: ${CAMPUS_REGISTRY_TIMEOUT_MS:3000}
+      rpc-version: 1
+      rpc-serializer: java
     user-service:
       host: 127.0.0.1
       rpc-port: 9091

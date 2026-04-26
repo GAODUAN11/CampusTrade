@@ -1,126 +1,104 @@
-# CampusTrade Server Deployment Scripts
+# CampusTrade 部署与演示说明
 
-This folder provides Linux shell scripts for your current architecture:
+本文档对应实验架构：`2个业务服务器 + 1个注册中心 + 1个客户端(gateway)`。
 
-- Server A: `user-service` (HTTP 8081 / RPC 9091), `product-service` (HTTP 8082 / RPC 9092)
-- Server B: `favorite-service` (HTTP 8083 / RPC 9093), `message-service` (HTTP 8084 / RPC 9094)
+## 1. 节点职责
 
-## 1. Prerequisites
+- 注册中心节点：`registry-center`（HTTP 8070 / RPC 9090）
+- 云服务器 A：`user-service`（8081/9091）、`product-service`（8082/9092）
+- 云服务器 B：`favorite-service`（8083/9093）、`message-service`（8084/9094）
+- 客户端（本地 Win11）：`gateway`（8080）
 
-- Linux with `bash`
-- Java 17
-- Maven 3.9+
-- MySQL 8+
-- Open ports:
-  - Server A: `8081`, `8082`, `9091`, `9092`
-  - Server B: `8083`, `8084`, `9093`, `9094`
+## 2. 两种演示模式
 
-## 2. Configure Environment Files
+### 模式 A：无 RPC（HTTP 直连）
 
-On each server, create env files from templates:
+- `gateway` 使用 `campus.remote.mode=http`
+- `gateway` 通过 `base-url` 直接请求四个服务的 REST 接口
+- 不依赖注册中心
+
+### 模式 B：自研 RPC（TCP Socket + 注册中心）
+
+- `gateway` 使用 `campus.remote.mode=rpc`
+- 四个业务服务启动后自动向 `registry-center` 注册并持续心跳
+- `gateway` 从注册中心发现服务，RPC 调用失败时按实例列表重试
+
+## 3. 服务器端脚本
+
+### 3.1 注册中心节点
 
 ```bash
-cp deploy/env/server-a.env.example deploy/env/server-a.env
-cp deploy/env/server-b.env.example deploy/env/server-b.env
+chmod +x deploy/common/service-functions.sh deploy/registry/*.sh
+cp deploy/env/registry.env.example deploy/env/registry.env
+
+./deploy/registry/prepare.sh
+./deploy/registry/start.sh
+./deploy/registry/status.sh
 ```
 
-Edit values:
+日志与 PID：
 
-- `CAMPUS_MYSQL_HOST`
-- `CAMPUS_MYSQL_PORT`
-- `CAMPUS_MYSQL_USERNAME`
-- `CAMPUS_MYSQL_PASSWORD`
-- `JAVA_OPTS`
+- `logs/registry/registry-center.log`
+- `run/registry/registry-center.pid`
 
-Important:
-
-- Keep env files in `KEY=VALUE` format (no `export` prefix) for systemd compatibility.
-- `java -version` must be 17 or above.
-
-## 3. Server A Commands
+### 3.2 云服务器 A
 
 ```bash
 chmod +x deploy/common/service-functions.sh deploy/server-a/*.sh
+cp deploy/env/server-a.env.example deploy/env/server-a.env
 
-# first-time prepare (build runnable jars)
 ./deploy/server-a/prepare.sh
-
-# start services
 ./deploy/server-a/start.sh
-
-# check status
 ./deploy/server-a/status.sh
-
-# stop services
-./deploy/server-a/stop.sh
 ```
 
-Logs and pid files:
-
-- Logs: `logs/server-a/*.log`
-- PID: `run/server-a/*.pid`
-
-## 4. Server B Commands
+### 3.3 云服务器 B
 
 ```bash
 chmod +x deploy/common/service-functions.sh deploy/server-b/*.sh
+cp deploy/env/server-b.env.example deploy/env/server-b.env
 
-# first-time prepare (build runnable jars)
 ./deploy/server-b/prepare.sh
-
-# start services
 ./deploy/server-b/start.sh
-
-# check status
 ./deploy/server-b/status.sh
-
-# stop services
-./deploy/server-b/stop.sh
 ```
 
-Logs and pid files:
+## 4. RPC 模式下 env 关键变量
 
-- Logs: `logs/server-b/*.log`
-- PID: `run/server-b/*.pid`
+在 `deploy/env/server-a.env` 和 `deploy/env/server-b.env` 中：
 
-## 5. Gateway Remote Service Configuration
+```bash
+SPRING_PROFILES_ACTIVE=rpc
+CAMPUS_REGISTRY_ENABLED=true
+CAMPUS_REGISTRY_HOST=<REGISTRY_SERVER_IP>
+CAMPUS_REGISTRY_RPC_PORT=9090
+CAMPUS_RPC_ADVERTISE_HOST=<CURRENT_SERVER_IP>
+```
 
-After server deployment, update gateway RPC endpoints:
+## 5. 客户端（gateway）配置
 
-- `campus.remote.user-service.host` -> `<SERVER_A_IP>`
-- `campus.remote.user-service.rpc-port` -> `9091`
-- `campus.remote.product-service.host` -> `<SERVER_A_IP>`
-- `campus.remote.product-service.rpc-port` -> `9092`
-- `campus.remote.favorite-service.host` -> `<SERVER_B_IP>`
-- `campus.remote.favorite-service.rpc-port` -> `9093`
-- `campus.remote.message-service.host` -> `<SERVER_B_IP>`
-- `campus.remote.message-service.rpc-port` -> `9094`
+### 无 RPC 演示
 
-Also keep protocol settings aligned (currently all are v1 + java serializer):
+- `campus.remote.mode=http`
+- 配置：
+  - `campus.remote.user-service.base-url`
+  - `campus.remote.product-service.base-url`
+  - `campus.remote.favorite-service.base-url`
+  - `campus.remote.message-service.base-url`
 
-- `campus.remote.*.rpc-version` -> `1`
-- `campus.remote.*.rpc-serializer` -> `java`
+### RPC 演示
 
-Notes:
+- `campus.remote.mode=rpc` 或启用 profile `rpc`
+- 配置：
+  - `CAMPUS_REGISTRY_HOST=<REGISTRY_SERVER_IP>`
+  - `CAMPUS_REGISTRY_RPC_PORT=9090`
 
-- `base-url` fields are compatibility placeholders and not used by current gateway RPC path.
-- HTTP ports are still required for `/actuator/health` and direct troubleshooting.
+## 6. 故障演示建议
 
-Target file:
+1. 先在 RPC 模式下全部启动。
+2. 访问注册中心：`GET http://<registry-host>:8070/api/registry/services`，确认已注册。
+3. 停掉某个服务实例，等待心跳 TTL（默认 15 秒）后再次查看注册信息。
+4. 观察 gateway 聚合接口：  
+   - 依赖该服务的接口会失败或降级  
+   - 不依赖该服务的接口仍可正常访问
 
-- `gateway/src/main/resources/application.yml`
-
-## 6. Notes
-
-- Current scripts use `java -jar` with Spring Boot executable jars.
-- If a service starts but health check is not UP, inspect its log file under `logs/server-a` or `logs/server-b`.
-- `user-service`, `product-service`, `favorite-service`, and `message-service` are all DB-backed.
-- Databases used: `campustrade_user`, `campustrade_product`, `campustrade_favorite`, `campustrade_message`.
-
-## 7. systemd (optional)
-
-If you want auto-start on boot and unified process management, use:
-
-- `deploy/systemd/README.md`
-- `deploy/systemd/install-server-a.sh`
-- `deploy/systemd/install-server-b.sh`

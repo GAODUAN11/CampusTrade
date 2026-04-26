@@ -1,0 +1,21 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: registry-center
+
+campus:
+  registry:
+    rpc-port: 9090
+    protocol-version: 1
+    serializer: java
+    instance-ttl-ms: 15000
+    cleanup-interval-ms: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+

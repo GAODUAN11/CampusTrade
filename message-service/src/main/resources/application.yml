@@ -28,9 +28,16 @@ spring:
 
 campus:
   rpc:
-    port: 9094
+    port: ${CAMPUS_RPC_PORT:9094}
     protocol-version: 1
     serializer: java
+    advertise-host: ${CAMPUS_RPC_ADVERTISE_HOST:127.0.0.1}
+    registry:
+      enabled: ${CAMPUS_REGISTRY_ENABLED:false}
+      host: ${CAMPUS_REGISTRY_HOST:127.0.0.1}
+      port: ${CAMPUS_REGISTRY_RPC_PORT:9090}
+      timeout-ms: ${CAMPUS_REGISTRY_TIMEOUT_MS:3000}
+      heartbeat-interval-ms: ${CAMPUS_REGISTRY_HEARTBEAT_INTERVAL_MS:5000}
 
 management:
   endpoints:

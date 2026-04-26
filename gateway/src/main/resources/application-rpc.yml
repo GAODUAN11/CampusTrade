@@ -1,0 +1,11 @@
+campus:
+  remote:
+    mode: rpc
+    registry:
+      enabled: true
+      host: ${CAMPUS_REGISTRY_HOST:127.0.0.1}
+      rpc-port: ${CAMPUS_REGISTRY_RPC_PORT:9090}
+      timeout-ms: ${CAMPUS_REGISTRY_TIMEOUT_MS:3000}
+      rpc-version: 1
+      rpc-serializer: java
+

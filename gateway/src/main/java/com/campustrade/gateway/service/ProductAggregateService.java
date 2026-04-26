@@ -6,10 +6,14 @@ import com.campustrade.gateway.client.FavoriteServiceClient;
 import com.campustrade.gateway.client.ProductServiceClient;
 import com.campustrade.gateway.client.UserServiceClient;
 import com.campustrade.gateway.vo.ProductDetailPageVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductAggregateService {
+    private static final Logger log = LoggerFactory.getLogger(ProductAggregateService.class);
+
     private final ProductServiceClient productServiceClient;
     private final UserServiceClient userServiceClient;
     private final FavoriteServiceClient favoriteServiceClient;
@@ -37,8 +41,17 @@ public class ProductAggregateService {
 
         boolean favorited = false;
         if (userId != null && userId > 0) {
-            Boolean checkResult = favoriteServiceClient.checkFavorite(userId, productId);
-            favorited = Boolean.TRUE.equals(checkResult);
+            try {
+                Boolean checkResult = favoriteServiceClient.checkFavorite(userId, productId);
+                favorited = Boolean.TRUE.equals(checkResult);
+            } catch (Exception ex) {
+                // Degrade gracefully when favorite-service is unavailable.
+                favorited = false;
+                log.warn(
+                        "favorite-service unavailable, fallback favorited=false, userId={}, productId={}, reason={}",
+                        userId, productId, ex.getMessage()
+                );
+            }
         }
 
         ProductDetailPageVO vo = new ProductDetailPageVO();

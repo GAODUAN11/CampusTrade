@@ -1,0 +1,5 @@
+campus:
+  rpc:
+    registry:
+      enabled: true
+
