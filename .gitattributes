@@ -1,2 +1,8 @@
-# Auto detect text files and perform LF normalization
+# Default: normalize text files.
 * text=auto
+
+# Deployment scripts and env files must always be LF on all platforms.
+*.sh text eol=lf
+.env text eol=lf
+.env.* text eol=lf
+.env* text eol=lf

@@ -54,6 +54,7 @@ health_up() {
 start_service() {
   local module="$1"
   local port="$2"
+  local env_overrides="${3:-}"
   local pid_file="${RUN_DIR}/${module}.pid"
   local log_file="${LOG_DIR}/${module}.log"
   local jar_file
@@ -80,7 +81,15 @@ start_service() {
   fi
 
   echo "[start] ${module} (port=${port}, jar=${jar_file})"
-  nohup env JAVA_OPTS="${JAVA_OPTS:-}" bash -lc "cd \"${APP_ROOT}\" && java \$JAVA_OPTS -jar \"${jar_file}\"" >>"${log_file}" 2>&1 &
+  if [[ -n "${env_overrides}" ]]; then
+    nohup env JAVA_OPTS="${JAVA_OPTS:-}" bash -lc \
+      "cd \"${APP_ROOT}\" && env ${env_overrides} java \$JAVA_OPTS -jar \"${jar_file}\"" \
+      >>"${log_file}" 2>&1 &
+  else
+    nohup env JAVA_OPTS="${JAVA_OPTS:-}" bash -lc \
+      "cd \"${APP_ROOT}\" && java \$JAVA_OPTS -jar \"${jar_file}\"" \
+      >>"${log_file}" 2>&1 &
+  fi
   local pid=$!
   echo "${pid}" >"${pid_file}"
 

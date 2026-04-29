@@ -8,6 +8,6 @@ echo "[info] APP_ROOT=${APP_ROOT}"
 cd "${APP_ROOT}"
 
 echo "[info] building runnable jars for server A modules..."
-mvn -DskipTests -pl user-service,product-service -am clean package
+mvn -DskipTests -pl user-service,product-service,favorite-service -am clean package
 
 echo "[ok] prepare done for server A"

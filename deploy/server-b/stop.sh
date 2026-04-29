@@ -13,4 +13,3 @@ stop_service "message-service"
 stop_service "favorite-service"
 
 echo "[ok] server B services stopped"
-

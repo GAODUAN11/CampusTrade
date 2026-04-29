@@ -22,8 +22,30 @@ source "${APP_ROOT}/deploy/common/service-functions.sh"
 require_cmd java
 require_java17
 
+ENABLE_FAVORITE_SERVICE_ON_B="${ENABLE_FAVORITE_SERVICE_ON_B:-true}"
+ENABLE_MESSAGE_SERVICE_ON_B="${ENABLE_MESSAGE_SERVICE_ON_B:-true}"
+
+FAVORITE_SERVICE_HTTP_PORT="${FAVORITE_SERVICE_HTTP_PORT:-8083}"
+FAVORITE_SERVICE_RPC_PORT="${FAVORITE_SERVICE_RPC_PORT:-9093}"
+MESSAGE_SERVICE_HTTP_PORT="${MESSAGE_SERVICE_HTTP_PORT:-8084}"
+MESSAGE_SERVICE_RPC_PORT="${MESSAGE_SERVICE_RPC_PORT:-9094}"
+
 echo "[info] start server B services..."
-start_service "favorite-service" "8083"
-start_service "message-service" "8084"
+if [[ "${ENABLE_FAVORITE_SERVICE_ON_B,,}" == "true" ]]; then
+  start_service \
+    "favorite-service" \
+    "${FAVORITE_SERVICE_HTTP_PORT}" \
+    "SERVER_PORT=${FAVORITE_SERVICE_HTTP_PORT} CAMPUS_RPC_PORT=${FAVORITE_SERVICE_RPC_PORT}"
+else
+  echo "[skip] favorite-service disabled by config"
+fi
+if [[ "${ENABLE_MESSAGE_SERVICE_ON_B,,}" == "true" ]]; then
+  start_service \
+    "message-service" \
+    "${MESSAGE_SERVICE_HTTP_PORT}" \
+    "SERVER_PORT=${MESSAGE_SERVICE_HTTP_PORT} CAMPUS_RPC_PORT=${MESSAGE_SERVICE_RPC_PORT}"
+else
+  echo "[skip] message-service disabled by config"
+fi
 
 echo "[ok] server B services started"

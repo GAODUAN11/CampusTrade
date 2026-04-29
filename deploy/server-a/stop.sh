@@ -9,8 +9,8 @@ LOG_DIR="${APP_ROOT}/logs/server-a"
 source "${APP_ROOT}/deploy/common/service-functions.sh"
 
 echo "[info] stop server A services..."
+stop_service "favorite-service"
 stop_service "product-service"
 stop_service "user-service"
 
 echo "[ok] server A services stopped"
-
